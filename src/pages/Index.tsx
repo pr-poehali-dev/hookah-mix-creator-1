@@ -517,22 +517,70 @@ function HeroSection({ onNav }: { onNav: (s: string) => void }) {
 
 function TobaccosSection() {
   const [filter, setFilter] = useState("все");
+  const [search, setSearch] = useState("");
   const tags = ["все", "фруктовый", "ягодный", "мята", "крепкий", "лёгкий", "классика", "тропический"];
 
-  const filtered = filter === "все"
-    ? TOBACCOS
-    : TOBACCOS.filter((t) => t.tags.includes(filter));
+  const q = search.toLowerCase().trim();
+  const filtered = TOBACCOS.filter((t) => {
+    const matchesTag = filter === "все" || t.tags.includes(filter);
+    const matchesSearch =
+      !q ||
+      t.name.toLowerCase().includes(q) ||
+      t.brand.toLowerCase().includes(q) ||
+      t.flavor.toLowerCase().includes(q) ||
+      t.description.toLowerCase().includes(q) ||
+      t.tags.some((tag) => tag.toLowerCase().includes(q));
+    return matchesTag && matchesSearch;
+  });
 
   return (
     <section id="tobaccos" className="py-24 px-6 loft-texture">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-14">
+        <div className="mb-10">
           <p className="section-title mb-3">— Коллекция —</p>
           <h2 style={{ fontFamily: "Oswald, sans-serif", fontWeight: 300, letterSpacing: "0.1em", color: "#f5e8d5", fontSize: "2.5rem" }} className="mb-6">
             КАТАЛОГ ТАБАКОВ
           </h2>
           <div className="gold-line w-16 mb-8" />
 
+          {/* Search */}
+          <div className="relative mb-6">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+              <Icon name="Search" size={15} style={{ color: "var(--loft-smoke)" }} />
+            </div>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Поиск по табакам, брендам, вкусам..."
+              style={{
+                width: "100%",
+                paddingLeft: "2.75rem",
+                paddingRight: "2.5rem",
+                paddingTop: "0.75rem",
+                paddingBottom: "0.75rem",
+                borderRadius: "2px",
+                background: "rgba(26,20,16,0.9)",
+                border: `1px solid ${search ? "rgba(200,146,42,0.5)" : "rgba(200,146,42,0.2)"}`,
+                color: "#f5e8d5",
+                outline: "none",
+                fontFamily: "Cormorant Garamond, serif",
+                fontSize: "1rem",
+                boxShadow: search ? "0 0 16px rgba(200,146,42,0.08)" : "none",
+                transition: "border-color 0.2s, box-shadow 0.2s",
+              }}
+            />
+            {search && (
+              <button
+                className="absolute inset-y-0 right-4 flex items-center"
+                onClick={() => setSearch("")}
+              >
+                <Icon name="X" size={14} style={{ color: "var(--loft-smoke)" }} />
+              </button>
+            )}
+          </div>
+
+          {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {tags.map((t) => (
               <button
@@ -554,11 +602,46 @@ function TobaccosSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((tobacco) => (
-            <TobaccoCard key={tobacco.id} tobacco={tobacco} />
-          ))}
-        </div>
+        {/* Results count */}
+        {(search || filter !== "все") && (
+          <div className="mb-5 flex items-center gap-2">
+            <span style={{ color: "var(--loft-smoke)", fontFamily: "IBM Plex Mono, monospace", fontSize: "0.7rem" }}>
+              найдено: {filtered.length}
+            </span>
+            {search && (
+              <>
+                <span style={{ color: "rgba(200,146,42,0.3)" }}>·</span>
+                <span style={{ color: "var(--loft-gold)", fontFamily: "IBM Plex Mono, monospace", fontSize: "0.7rem" }}>
+                  «{search}»
+                </span>
+              </>
+            )}
+          </div>
+        )}
+
+        {filtered.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filtered.map((tobacco) => (
+              <TobaccoCard key={tobacco.id} tobacco={tobacco} />
+            ))}
+          </div>
+        ) : (
+          <div className="py-20 text-center">
+            <div className="text-5xl mb-4 opacity-20">◈</div>
+            <p style={{ fontFamily: "Oswald, sans-serif", color: "#f5e8d5", letterSpacing: "0.1em", fontSize: "1.1rem" }}>
+              НИЧЕГО НЕ НАЙДЕНО
+            </p>
+            <p className="mt-2 text-sm" style={{ color: "var(--loft-smoke)", fontFamily: "Cormorant Garamond, serif" }}>
+              Попробуйте другой запрос или сбросьте фильтры
+            </p>
+            <button
+              className="mt-6 btn-outline-gold px-6 py-2 text-xs rounded tracking-widest"
+              onClick={() => { setSearch(""); setFilter("все"); }}
+            >
+              СБРОСИТЬ
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
