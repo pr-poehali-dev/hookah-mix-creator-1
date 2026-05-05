@@ -4,89 +4,42 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 20 8% 8%;
+    --foreground: 35 20% 88%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 20 8% 11%;
+    --card-foreground: 35 20% 88%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 20 8% 11%;
+    --popover-foreground: 35 20% 88%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 32 80% 52%;
+    --primary-foreground: 20 8% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 20 8% 16%;
+    --secondary-foreground: 35 20% 88%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 20 8% 14%;
+    --muted-foreground: 35 10% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 32 60% 42%;
+    --accent-foreground: 35 20% 88%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 35 20% 88%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 20 8% 20%;
+    --input: 20 8% 18%;
+    --ring: 32 80% 52%;
+
+    --radius: 0.25rem;
+
+    --loft-brick: #2a1f1a;
+    --loft-metal: #8a7968;
+    --loft-gold: #c8922a;
+    --loft-ember: #e05a1e;
+    --loft-smoke: #b5a99a;
+    --loft-dark: #120e0b;
   }
 }
 
@@ -97,5 +50,168 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Cormorant Garamond", serif;
+    background-color: #120e0b;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .font-mono-lab {
+    font-family: "IBM Plex Mono", monospace;
+  }
+}
+
+@layer utilities {
+  .loft-texture {
+    background-image:
+      radial-gradient(
+        ellipse at 20% 50%,
+        rgba(200, 146, 42, 0.06) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgba(224, 90, 30, 0.04) 0%,
+        transparent 50%
+      ),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23120e0b'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23ffffff' opacity='0.015'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23ffffff' opacity='0.01'/%3E%3C/svg%3E");
+  }
+
+  .brick-pattern {
+    background-image:
+      linear-gradient(rgba(42, 31, 26, 0.8) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42, 31, 26, 0.5) 1px, transparent 1px);
+    background-size: 60px 30px;
+  }
+
+  .gold-line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--loft-gold),
+      transparent
+    );
+    height: 1px;
+  }
+
+  .strength-dot {
+    @apply inline-block w-3 h-3 rounded-full;
+  }
+
+  .card-loft {
+    background: linear-gradient(135deg, #1a1410 0%, #1e1712 100%);
+    border: 1px solid rgba(200, 146, 42, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-loft:hover {
+    border-color: rgba(200, 146, 42, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(200, 146, 42, 0.12);
+  }
+
+  .nav-link {
+    @apply font-mono-lab text-xs tracking-widest uppercase cursor-pointer;
+    color: var(--loft-smoke);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--loft-gold);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #c8922a, #a87020);
+    color: #120e0b;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #e0a832, #c8922a);
+    box-shadow: 0 6px 20px rgba(200, 146, 42, 0.35);
+  }
+
+  .btn-outline-gold {
+    border: 1px solid rgba(200, 146, 42, 0.5);
+    color: var(--loft-gold);
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .btn-outline-gold:hover {
+    border-color: var(--loft-gold);
+    background: rgba(200, 146, 42, 0.1);
+  }
+
+  .section-title {
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--loft-smoke);
+    font-size: 0.7rem;
+  }
+
+  .mix-selected {
+    border-color: var(--loft-gold) !important;
+    background: rgba(200, 146, 42, 0.08) !important;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes smokeFloat {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+      opacity: 0.2;
+    }
+  }
+
+  .animate-fade-up {
+    animation: fadeInUp 0.7s ease forwards;
+  }
+
+  .animate-smoke {
+    animation: smokeFloat 8s ease-in-out infinite;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+  .delay-500 {
+    animation-delay: 0.5s;
   }
 }
